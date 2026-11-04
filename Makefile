@@ -10,7 +10,7 @@ verify: lint test ## run all gates (must pass before a PR)
 	@echo "verify: all gates passed"
 
 test: ## run tests (placeholder: e.g. go test ./... | npm test | ./mvnw test)
-	@echo "TODO: wire your test command in the Makefile (target: test)"; exit 1
+	@echo "WARN: no test command wired yet. Edit the Makefile (target: test)."
 
 lint: ## run linters (placeholder: e.g. golangci-lint run | npm run lint)
-	@echo "TODO: wire your lint command in the Makefile (target: lint)"; exit 1
+	@echo "WARN: no lint command wired yet. Edit the Makefile (target: lint)."

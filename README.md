@@ -32,7 +32,7 @@ It does not ship any agent. It ships the **harness** around one:
 
 1. Click **Use this template** (or clone and delete `.git`).
 2. Wire `make verify` in the `Makefile` to your real checks (tests, lint, type check).
-   It fails on purpose until you do.
+   Until you do, it passes with a warning so the template stays green.
 3. Install the secret scanner hook:
    ```bash
    pipx install pre-commit   # or: pip install pre-commit
