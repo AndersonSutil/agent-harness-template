@@ -17,10 +17,19 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Scan the full fetched history with the gitleaks CLI.
+      # gitleaks-action builds a `<base>^..<head>` git range, which Git rejects
+      # when <base> is a root commit (this repository, and new repos created
+      # from the template). Omitting --log-opts scans every checked-out commit.
       - name: Secret scan (gitleaks)
-        uses: gitleaks/gitleaks-action@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_VERSION: "8.24.3"
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp -d)"
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | tar -xz -C "${tmp}" gitleaks
+          "${tmp}/gitleaks" detect --source . --redact --verbose --exit-code 1
 
       # Add your toolchain setup here (actions/setup-go, setup-node, setup-java...).
 
